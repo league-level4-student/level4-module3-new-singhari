@@ -28,7 +28,9 @@ public class MorseCode implements Comparable<MorseCode> {
     /*
      * Implement the compareTo method so that the binary tree will go down the
      * right tree if it finds a '-' at the current position and go down the
-     * left tree if it finds a '.'.
+     * left tree if it finds a '.'. 
+     *
+     * Hint: This works the same as String's compareTo.
      */
     @Override
     public int compareTo(MorseCode o) {
