@@ -1,5 +1,7 @@
 package _05_Intro_to_AVL_Trees;
 
+import java.util.Collections;
+
 import _03_Intro_to_Binary_Trees.BinaryTree;
 import _03_Intro_to_Binary_Trees.Node;
 import _04_Morse_Code.MorseCode;
@@ -29,8 +31,15 @@ public class AVLTree<T extends Comparable<T>> extends BinaryTree<T> {
     }
 
     @Override
-    public void print() {
-        recursivePrint(root, 0);
+    public void printHorizontal() {
+        recursivePrintHorizontal(root, 0);
+    }
+    
+    @Override
+    public void printVertical() {
+        int maxLevel = maxLevel(root);
+
+        recursivePrintVertical(Collections.singletonList(root), 1, maxLevel);
     }
 
     public void delete(T value) {

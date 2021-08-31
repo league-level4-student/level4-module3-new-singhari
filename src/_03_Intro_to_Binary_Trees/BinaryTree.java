@@ -1,27 +1,17 @@
 package _03_Intro_to_Binary_Trees;
 
-import _04_Morse_Code.MorseCode;
-import _05_Intro_to_AVL_Trees.AVLNode;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class BinaryTree<T extends Comparable<T>> {
 
     private Node<T> root;
-    private boolean morseCode = false;
 
     static final int SPACING = 5;
 
-    /*
-     * Each of these methods are implemented by calling a recursive method.
-     * 
-     * Note: The morseCode part will be used in the next recipe. This flag is
-     * set to perform unique operations when comparing values in morseCode.
-     */
     public void insert(T value) {
         root = recursiveInsert(root, value);
-
-        if (morseCode) {
-            ((MorseCode) value).setPosition(0);
-        }
     }
 
     public Node<T> search(T value) {
@@ -34,29 +24,24 @@ public class BinaryTree<T extends Comparable<T>> {
             return null;
 
         } else {
-
-            if (morseCode) {
-                System.out.println("FOUND VALUE: "
-                        + ((MorseCode) nodeQuery.getValue()).getDecoded());
-                ((MorseCode) value).setPosition(0);
-            } else {
-                System.out.println("FOUND VALUE: " + nodeQuery.getValue());
-            }
-            return nodeQuery;
+            System.out.println("FOUND VALUE: " + nodeQuery.getValue());
         }
-
+        return nodeQuery;
     }
 
     public void delete(T value) {
         root = recursiveDelete(root, value);
-
-        if (morseCode) {
-            ((MorseCode) value).setPosition(0);
-        }
     }
 
-    public void print() {
-        recursivePrint(root, 0);
+    public void printHorizontal() {
+        recursivePrintHorizontal(root, 0);
+    }
+
+    public void printVertical() {
+
+        int maxLevel = maxLevel(root);
+
+        recursivePrintVertical(Collections.singletonList(root), 1, maxLevel);
     }
 
     public Node<T> getRoot() {
@@ -80,16 +65,10 @@ public class BinaryTree<T extends Comparable<T>> {
         }
 
         if (value.compareTo(current.getValue()) < 0) {
-            if (morseCode) {
-                MorseCode mcValue = (MorseCode) value;
-                mcValue.setPosition(mcValue.getPosition() + 1);
-            }
+
             current.setLeft(recursiveInsert(current.getLeft(), value));
         } else if (value.compareTo(current.getValue()) > 0) {
-            if (morseCode) {
-                MorseCode mcValue = (MorseCode) value;
-                mcValue.setPosition(mcValue.getPosition() + 1);
-            }
+
             current.setRight(recursiveInsert(current.getRight(), value));
         } else {
             return current;
@@ -111,17 +90,10 @@ public class BinaryTree<T extends Comparable<T>> {
         } else if (value.compareTo(current.getValue()) == 0) {
             return current;
         } else if (value.compareTo(current.getValue()) < 0) {
-            if (morseCode) {
-                MorseCode mcValue = (MorseCode) value;
-                mcValue.setPosition(mcValue.getPosition() + 1);
-            }
+
             return recursiveSearch(current.getLeft(), value);
         } else {
 
-            if (morseCode) {
-                MorseCode mcValue = (MorseCode) value;
-                mcValue.setPosition(mcValue.getPosition() + 1);
-            }
             return recursiveSearch(current.getRight(), value);
         }
 
@@ -141,16 +113,8 @@ public class BinaryTree<T extends Comparable<T>> {
             return current;
 
         if (value.compareTo(current.getValue()) < 0) {
-            if (morseCode) {
-                MorseCode mcValue = (MorseCode) value;
-                mcValue.setPosition(mcValue.getPosition() + 1);
-            }
             current.setLeft(recursiveDelete(current.getLeft(), value));
         } else if (value.compareTo(current.getValue()) > 0) {
-            if (morseCode) {
-                MorseCode mcValue = (MorseCode) value;
-                mcValue.setPosition(mcValue.getPosition() + 1);
-            }
 
             current.setRight(recursiveDelete(current.getRight(), value));
         } else {
@@ -185,30 +149,107 @@ public class BinaryTree<T extends Comparable<T>> {
     /*
      * This method prints out the BinaryTree starting with the root at the far
      * left on the console and the bottom leaves at the far right of the
-     * console. 
+     * console.
      * 
      * Each Node at the same level should be even with each other.
+     * 
+     * This method doesn't look as nice as vertical, but may be easier to read
+     * on very large trees.
      */
 
-    protected void recursivePrint(Node<T> current, int space) {
+    protected void recursivePrintHorizontal(Node<T> current, int space) {
         if (current == null)
             return;
 
         space += SPACING;
 
-        recursivePrint(current.getRight(), space);
+        recursivePrintHorizontal(current.getRight(), space);
 
         System.out.print("\n");
         for (int i = SPACING; i < space; i++)
             System.out.print(" ");
 
-        if (morseCode)
-            System.out.print(
-                    ((((MorseCode) current.getValue()).getDecoded()) + "\n"));
-        else
-            System.out.print(current.getValue() + "\n");
+        System.out.print(current.getValue() + "\n");
 
-        recursivePrint(current.getLeft(), space);
+        recursivePrintHorizontal(current.getLeft(), space);
+    }
+
+    /*
+     * This method prints out the BinaryTree starting with the root at the very
+     * top of the console and the bottom leaves at the bottom of the console.
+     * 
+     * Each Node at the same level should be even with each other.
+     * 
+     * This method looks nicer than horizontal, but may be harder to read on
+     * very large trees.
+     */
+
+    protected void recursivePrintVertical(List<Node<T>> nodes, int level,
+            int maxLevel) {
+        if (nodes.isEmpty() || isAllElementsNull(nodes))
+            return;
+
+        int floor = maxLevel - level;
+        int endgeLines = (int) Math.pow(2, (Math.max(floor - 1, 0)));
+        int firstSpaces = (int) Math.pow(2, (floor)) - 1;
+        int betweenSpaces = (int) Math.pow(2, (floor + 1)) - 1;
+
+        printWhitespaces(firstSpaces);
+
+        List<Node<T>> newNodes = new ArrayList<Node<T>>();
+        for (Node<T> node : nodes) {
+            if (node != null) {
+                System.out.print(node.getValue());
+                newNodes.add(node.getLeft());
+                newNodes.add(node.getRight());
+            } else {
+                newNodes.add(null);
+                newNodes.add(null);
+                System.out.print(" ");
+            }
+
+            printWhitespaces(betweenSpaces);
+        }
+        System.out.println("");
+
+        for (int i = 1; i <= endgeLines; i++) {
+            for (int j = 0; j < nodes.size(); j++) {
+                printWhitespaces(firstSpaces - i);
+                if (nodes.get(j) == null) {
+
+                    printWhitespaces(endgeLines + endgeLines + i + 1);
+                    continue;
+                }
+
+                if (nodes.get(j).getLeft() != null)
+                    System.out.print("/");
+                else
+                    printWhitespaces(1);
+
+                printWhitespaces(i + i - 1);
+
+                if (nodes.get(j).getRight() != null)
+                    System.out.print("\\");
+                else
+                    printWhitespaces(1);
+
+                printWhitespaces(endgeLines + endgeLines - i);
+            }
+
+            System.out.println("");
+        }
+
+        recursivePrintVertical(newNodes, level + 1, maxLevel);
+    }
+    
+    //Helper methods
+    
+    protected int maxLevel(Node<T> node) {
+        if (node == null)
+            return 0;
+
+        return Math.max(maxLevel(node.getLeft()), maxLevel(node.getRight()))
+                + 1;
     }
 
     protected Node<T> findSmallestNode(Node<T> current) {
@@ -221,8 +262,18 @@ public class BinaryTree<T extends Comparable<T>> {
 
     }
 
-    public void setMorseCode(boolean morseCode) {
-        this.morseCode = morseCode;
+    private void printWhitespaces(int count) {
+        for (int i = 0; i < count; i++)
+            System.out.print(" ");
+    }
+
+    private static <T> boolean isAllElementsNull(List<T> list) {
+        for (Object object : list) {
+            if (object != null)
+                return false;
+        }
+
+        return true;
     }
 
 }

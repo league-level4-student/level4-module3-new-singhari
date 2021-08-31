@@ -16,8 +16,6 @@ public class MorseDecoder {
 
     public void initialize() {
 
-        mcTree.setMorseCode(true);
-
         mcTree.insert(new MorseCode("start", ""));
         mcTree.insert(new MorseCode("e", "."));
         mcTree.insert(new MorseCode("t", "-"));
@@ -49,17 +47,21 @@ public class MorseDecoder {
         mcTree.insert(new MorseCode("z", "--.."));
         mcTree.insert(new MorseCode("q", "--.-"));
 
-        mcTree.print();
+        mcTree.printVertical();
 
     }
 
     /*
-     * After you have implemented the compareTo method in MorseCode see if you
-     * can decode the following message using the binary tree:
+     * 1.) See if you can decode the following message using the binary tree and
+     * print it to the console:
      * 
      * -.-- --- ..- .- .-. . .- -- .- --.. .. -. --.
      * 
-     * Then try creating your own morse code message and decoding it!
+     * 2.) Then use the binary tree and the scanner class to create a morse code
+     * translator. The user should be able to type multiple letters in morse
+     * code on a single line and have it repeated back to them, decoded into the
+     * english alphabet.
+     * 
      */
     void decode() {
 

@@ -6,7 +6,7 @@ public class AVLTreeDemo {
 
     /*
      * An AVLTree is a special BinaryTree that is capable of balancing itself.
-     * On a regular binary tree, depending on the elements inserted, you might
+     * With a regular binary tree, depending on the elements inserted, you might
      * have a root with one very long right branch and one very long left branch
      * with nothing else in between.
      * 
@@ -22,10 +22,12 @@ public class AVLTreeDemo {
      * 
      * 2.) Create a BinaryTree and an AVLTree.
      * 
-     * 3.) Try inserting the same values into both trees and observe how they
-     * differ using the print method.
+     * 3.) Insert the same values into both trees and observe how they differ
+     * using the print method. Make sure the values you pick unbalance the
+     * binary tree.
      * 
-     * 4.) Try removing elements and see how they change.
+     * 4.) Try removing elements from both and see how they change using one of
+     * the print methods.
      */
 
     public static void main(String[] args) {

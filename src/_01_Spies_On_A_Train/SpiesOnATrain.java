@@ -15,6 +15,11 @@ public class SpiesOnATrain {
      * 
      * Walk through the train, questioning each of the passengers about what
      * they have seen and return the name of the most likely suspect.
+     * 
+     * The results are randomly generated each time so you should have a general
+     * case solution that carefully compares the clues to each passenger's
+     * testimony. Remember to use String methods to break up the passengers'
+     * statements.
      */
     String findIntel(LinkedList<TrainCar> train, String[] clues) {
 
