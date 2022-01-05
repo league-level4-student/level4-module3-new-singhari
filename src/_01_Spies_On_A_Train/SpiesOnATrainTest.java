@@ -137,7 +137,7 @@ public class SpiesOnATrainTest {
         boolean foundSpy = spy.equals(agent.findIntel(train, spyClues));
         
         if(foundSpy) {
-            System.out.println("Your agency apprehended the spy! It was" + spy);
+            System.out.println("Your agency apprehended the spy! It was " + spy);
         }
         else {
             System.out.println("The spy escaped! It was " + spy);
