@@ -31,14 +31,14 @@ public class MorseCode implements Comparable<MorseCode> {
 
         String otherCoded = otherCode.getCoded();
         
-        if (coded.charAt(otherCoded.length())=='-') {
+        if(coded.equals(otherCoded)) {
+        	return 0;
+        }
+        else if (coded.charAt(otherCoded.length())=='-') {
             return 1;
         }
-        else if(coded.charAt(otherCoded.length())=='.') {
-            return -1;
-        }
         else {
-            return 0;
+            return -1;
         }
     }
 
