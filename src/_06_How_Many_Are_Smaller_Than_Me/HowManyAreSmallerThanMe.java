@@ -8,7 +8,7 @@ public class HowManyAreSmallerThanMe {
     /*
      * Given an AVLTree filled with the random numbers from 1 to 20, and a
      * single number within the AVL Tree, figure out how many numbers in the
-     * AVLTree are bigger than the provided number and return the result.
+     * AVLTree are smaller than the provided number and return the result.
      * 
      * You may want to create a helper method to search through the AVLTree and
      * count iteratively or recursively.
