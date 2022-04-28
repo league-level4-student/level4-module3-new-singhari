@@ -64,7 +64,7 @@ public class MorseDecoder {
      * 
      */
     void decode() {
-
+        String morseCode = "-.-- --- ..- .- .-. . .- -- .- --.. .. -. --.";
     }
 
 }
