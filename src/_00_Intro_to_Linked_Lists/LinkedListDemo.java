@@ -31,7 +31,13 @@ public class LinkedListDemo {
          * String nodes.
          * 
          */
-
+    	LinkedList<Integer> mcDon = new LinkedList<Integer>();
+    	for(int i = 1; i < 10; i++) {
+    		mcDon.add(i);
+    	}
+    	mcDon.remove(2);
+    	Node<Integer> mcDonHead = mcDon.getHead();
+    	
     }
 
 }
