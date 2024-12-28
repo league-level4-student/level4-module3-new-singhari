@@ -22,10 +22,15 @@ public class SpiesOnATrain {
      * statements.
      */
     String findIntel(LinkedList<TrainCar> train, String[] clues) {
+    	HashMap<String, String> data = new HashMap<String, String>();
+    	String suspect = "";
     	for(int i = 0; i < train.size(); i++) {
-    		//TrainCar currentCar  = train.get
+    		TrainCar currentCar  = train.getHead().getValue();
+    		data.put(currentCar.toString(), currentCar.questionPassenger());
+    		
     	}
-        return "";
+    	
+        return suspect;
 
     }
 

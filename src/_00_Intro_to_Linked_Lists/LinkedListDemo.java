@@ -35,9 +35,18 @@ public class LinkedListDemo {
     	for(int i = 1; i < 10; i++) {
     		mcDon.add(i);
     	}
-    	mcDon.remove(2);
+    	//mcDon.remove(2);
     	Node<Integer> mcDonHead = mcDon.getHead();
-    	
+    	int valueToAdd = mcDonHead.getValue();
+    	do {	
+//    		System.out.print(mcDonHead.getValue());
+//    		mcDon.remove(0);
+//    		mcDonHead = mcDon.getHead();
+    		System.out.print(valueToAdd);
+    		mcDon.remove(0);
+    		mcDonHead = mcDon.getHead();
+    		
+    	} while (mcDon.size() > 0);
     }
 
 }
